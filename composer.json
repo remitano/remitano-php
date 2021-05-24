@@ -1,0 +1,20 @@
+{
+  "name": "remitano/remitano-php",
+  "type": "library",
+  "description": "Remitano API PHP CLient",
+  "homepage": "https://remitano.com",
+  "license": "MIT",
+  "keywords": ["remitano", "rest", "api", "client"],
+  "authors": [
+    {
+      "name": "Remitano",
+      "homepage": "https://remitano.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "spomky-labs/otphp": "^10.0",
+    "guzzlehttp/guzzle": "^7.3",
+    "sanchobbdo/api-auth-client-plugin": "^1.0"
+  }
+}

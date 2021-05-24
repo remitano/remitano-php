@@ -1,0 +1,10 @@
+# Ignore coverage report
+tests/coverage/*
+
+# Ignore composer related files
+/composer.lock
+/vendor
+
+# Ignore local overrides of the PHPCS config file.
+.phpcs.xml
+phpcs.xml
