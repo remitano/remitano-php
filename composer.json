@@ -1,20 +1,51 @@
 {
-  "name": "remitano/remitano-php",
-  "type": "library",
-  "description": "Remitano API PHP CLient",
-  "homepage": "https://remitano.com",
-  "license": "MIT",
-  "keywords": ["remitano", "rest", "api", "client"],
-  "authors": [
-    {
-      "name": "Remitano",
-      "homepage": "https://remitano.com"
+    "name": "remitano/remitano-php",
+    "type": "library",
+    "description": "Remitano API Client",
+    "keywords": [
+        "Remitano",
+        "Api"
+    ],
+    "homepage": "https://github.com/Remitano/Api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Remitano",
+            "email": "support@remitano.com",
+            "homepage": "https://github.com/remitano",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">= 7.2",
+        "guzzlehttp/guzzle": "^7.3",
+        "spomky-labs/otphp": "^10.0",
+      "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Remitano\\Api\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Remitano\\Api\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs src tests",
+        "fix-style": "phpcbf src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
     }
-  ],
-  "require": {
-    "php": ">=7.4",
-    "spomky-labs/otphp": "^10.0",
-    "guzzlehttp/guzzle": "^7.3",
-    "sanchobbdo/api-auth-client-plugin": "^1.0"
-  }
 }
