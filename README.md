@@ -1,8 +1,8 @@
 # Remitano PHP API Client
 
-PHP client for Remitano API https://developers.remitano.com/api-explorer/
+Feel free to fork, modify & redistribute under the MIT license.
 
-## Install
+## Installation
 
 Via Composer
 
@@ -10,28 +10,95 @@ Via Composer
 $ composer require remitano/remitano-php
 ```
 
-## Usage
+Or clone this repository and include it in your project
 
-``` php
+## Usage
+### Create API Key
+
+Visit https://remitano.com/settings/api_key to create API key.
+
+### Get Authentiator secret
+
+Visit https://remitano.com/settings/authenticator to get your authenticator secret.
+
+Note: This is needed to perform actions which need 2FA authentication like withdrawals, otherwise, you won't need it.
+### Setup Remitano client
+
+```php
 $client = new Remitano\Api\RemitanoClient(array(
     'apiKey'  => 'your-api-key',
     'apiSecret' => 'your-api-secret',
     'authenticatorSecret' => 'your-authenticator-secret'
 ));
+```
+### Payment gateway
+Visit https://developers.remitano.com/api-explorer - Merchant section for more information.
+#### Charges
+##### Get
+```php
+$merchant_charges = new Remitano\Api\Merchant\Charge($client);
+$merchant_charges->get($id);
+```
+##### Create
+```php
+$merchant_charges->create([
+    "coin_currency" =>"usdt",
+    "coin_amount" =>10.99,
+    "cancelled_or_completed_callback_url" =>"https://example.com/payments/callback?id=example"
+]);
+```
+Note: For now, we only support `usdt` as the price coin currency.
 
-$client->get('/api/v1/users/me');
+#### Withdrawals
+##### Get
+```php
+$merchant_withdrawal = new Remitano\Api\Merchant\Withdrawal($client);
+$merchant_withdrawal->get($id);
+```
+##### Create
+1. Withdraw to external coin address
+```php
+$merchant_withdrawal->create([
+    "merchant_withdrawal_ref" => "123",
+    "coin_currency" => "btc",
+    "coin_amount" => 1,
+    "receiver_pay_fee" => true,
+    "cancelled_or_completed_callback_url" => "http://sample.com/123/callback",
+        "coin_address" => "3CpwViK5RAMzT8AmaMFHVHyfoyQSwNPB6y"
+]);
 ```
 
-## Security
+2. Withdraw to other remitano account
+```php
+$merchant_withdrawal->create([
+    "merchant_withdrawal_ref" => "123",
+    "coin_currency" => "btc",
+    "coin_amount" => 1,
+    "receiver_pay_fee" => true,
+    "cancelled_or_completed_callback_url" => "http://sample.com/123/callback",
+    "remitano_username" => "receiver123",
+    "remitano_phone_number" => "+234 1 123 4567"
+]);
+```
 
-If you discover any security related issues, please email support@remitano.com or file a report at hackerone.com/remitano
+#### Callbacks
+When Charge or Withdrawal is changed to completed or cancelled in our system, we will send
+a POST callback request to `object.cancelled_or_completed_callback_url` with following
+request json body:
+```json
+{ "id": object.id }
+```
+then you could call `$merchant_charges->get($id)` or `$merchant_withdrawal->get($id)`
+to get the updated information and process accordingly.
 
-## Credits
+### Errors
+When receiving non 200-299 http code, an Error will be raised.
 
-- [Remitano][link-author]
+## Contributing
 
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-[link-author]: https://github.com/remitano
+1. Fork it
+2. Create your feature branch (`git checkout -b
+   my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
