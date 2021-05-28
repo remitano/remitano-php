@@ -8,11 +8,12 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use OTPHP\HOTP;
 use OTPHP\TOTP;
+use Remitano\Api\Utils\ActionConfirmations;
 use Remitano\Api\Utils\ApiAuthHandler;
 
 class RemitanoClient {
-    protected $client;
-    protected $authenticator_secret;
+    private $client;
+    private $authenticator_secret;
 
     public function __construct($config)
     {
@@ -36,12 +37,12 @@ class RemitanoClient {
 
     public function authenticator_token()
     {
-        return TOTP::create($this->authenticator_secret);
+        return TOTP::create($this->authenticator_secret)->now();
     }
 
     public function hotp($otp_counter)
     {
-        return HOTP::create($this->authenticator_secret, $otp_counter);
+        return HOTP::create($this->authenticator_secret, $otp_counter)->at($otp_counter);
     }
 
     public function get($url)
@@ -71,6 +72,6 @@ class RemitanoClient {
 
     private function base_uri()
     {
-        return getenv('REMITANO_SERVER') ?: "https://api.remitano.com";
+        return getenv('REMITANO_SERVER') ?: "https://api.remitano.com/api/v1/";
     }
 }

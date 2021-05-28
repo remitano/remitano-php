@@ -7,23 +7,3 @@ $client = new Remitano\Api\RemitanoClient(array(
     'authenticatorSecret' => 'base32secretkey3232'
 ));
 
-//print_r($client->get('users/document'));
-//
-$merchant_charges = new Remitano\Api\Merchant\Charge($client);
-$charge = $merchant_charges->create([
-    "coin_currency" =>"usdt",
-    "coin_amount" => 10.99,
-    "cancelled_or_completed_callback_url" =>"https://example.com/payments/callback?id=example"
-]);
-print_r($charge);
-
-//print_r($client->post('users/update', [
-//    'name'=>'buyer slee'
-//]));
-
-
-//print_r($client->post("merchant/merchant_charges", [
-//    "coin_currency" => "usdt",
-//    "coin_amount" => 10.899,
-//    "cancelled_or_completed_callback_url" => "https://example.com/payments/callback?id=example"
-//]));

@@ -19,7 +19,22 @@ $client = new Remitano\Api\RemitanoClient(array(
     'authenticatorSecret' => 'your-authenticator-secret'
 ));
 
-$client->get('/api/v1/users/me');
+$merchant_charges = new Remitano\Api\Merchant\Charge($client);
+$charge = $merchant_charges->create([
+    "coin_currency" =>"usdt",
+    "coin_amount" =>10.99,
+    "cancelled_or_completed_callback_url" =>"https://example.com/payments/callback?id=example"
+]);
+
+$merchange_withdrawal = new Remitano\Api\Merchant\Withdrawal($client);
+$withdraw= $merchange_withdrawal->create([
+    "merchant_withdrawal_ref" => "123",
+    "coin_currency" => "btc",
+    "coin_amount" => 1,
+    "coin_address" => "3CpwViK5RAMzT8AmaMFHVHyfoyQSwNPB6y",
+    "receiver_pay_fee" => true,
+    "cancelled_or_completed_callback_url" => "http://sample.com/123/callback",
+]);
 ```
 
 ## Security
