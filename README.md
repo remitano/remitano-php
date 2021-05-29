@@ -17,11 +17,12 @@ Or clone this repository and include it in your project
 
 Visit https://remitano.com/settings/api_key to create API key.
 
-### Get Authentiator secret
+### Get Authenticator secret
 
 Visit https://remitano.com/settings/authenticator to get your authenticator secret.
 
 Note: This is needed to perform actions which need 2FA authentication like withdrawals, otherwise, you won't need it.
+
 ### Setup Remitano client
 
 ```php
@@ -52,13 +53,13 @@ Note: For now, we only support `usdt` as the price coin currency.
 #### Withdrawals
 ##### Get
 ```php
-$merchant_withdrawal = new Remitano\Api\Merchant\Withdrawal($client);
-$merchant_withdrawal->get($id);
+$merchant_withdrawals = new Remitano\Api\Merchant\Withdrawal($client);
+$merchant_withdrawals->get($id);
 ```
 ##### Create
 1. Withdraw to external coin address
 ```php
-$merchant_withdrawal->create([
+$merchant_withdrawals->create([
     "merchant_withdrawal_ref" => "123",
     "coin_currency" => "btc",
     "coin_amount" => 1,
@@ -70,7 +71,7 @@ $merchant_withdrawal->create([
 
 2. Withdraw to other remitano account
 ```php
-$merchant_withdrawal->create([
+$merchant_withdrawals->create([
     "merchant_withdrawal_ref" => "123",
     "coin_currency" => "btc",
     "coin_amount" => 1,
@@ -91,6 +92,19 @@ request json body:
 then you could call `$merchant_charges->get($id)` or `$merchant_withdrawal->get($id)`
 to get the updated information and process accordingly.
 
+### Other API calls
+Visit https://developers.remitano.com/api-explorer for more API specs, APIs can be called directly by using method `get`, `post`, `put` of `$client`
+
+```php
+$client->get('users/coin_accounts');
+
+$client->post('offers/best', [
+    "country_code" => "my",
+    "offer_type" => "buy",
+    "coin_currency" => "btc",
+    "coin_amount" => 1
+]);
+```
 ### Errors
 When receiving non 200-299 http code, an Error will be raised.
 

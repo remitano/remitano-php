@@ -7,3 +7,8 @@ $client = new Remitano\Api\RemitanoClient(array(
     'authenticatorSecret' => 'base32secretkey3232'
 ));
 
+// Get coin account info of current user
+$coin_accounts = $client->get('/users/coin_accounts');
+
+$merchant_withdrawals = new Remitano\Api\Merchant\Withdrawal($client);
+$withdrawal = $merchant_withdrawals->get(1);
