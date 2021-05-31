@@ -20,7 +20,8 @@ class Charge
         return $this->client->post("merchant/merchant_charges", [
             "coin_currency" => $data["coin_currency"],
             "coin_amount" => $data["coin_amount"],
-            "cancelled_or_completed_callback_url" => $data["cancelled_or_completed_callback_url"]
+            "cancelled_or_completed_callback_url" => $data["cancelled_or_completed_callback_url"],
+            "description" => $data["description"],
         ]);
     }
 }
