@@ -26,11 +26,11 @@ Note: This is needed to perform actions which need 2FA authentication like withd
 ### Setup Remitano client
 
 ```php
-$client = new Remitano\Api\RemitanoClient(array(
+$client = new Remitano\Api\RemitanoClient([
     'apiKey'  => 'your-api-key',
     'apiSecret' => 'your-api-secret',
     'authenticatorSecret' => 'your-authenticator-secret'
-));
+]);
 ```
 ### Payment gateway
 Visit https://developers.remitano.com/api-explorer - Merchant section for more information.
@@ -43,9 +43,10 @@ $merchant_charges->get($id);
 ##### Create
 ```php
 $merchant_charges->create([
-    "coin_currency" =>"usdt",
-    "coin_amount" =>10.99,
-    "cancelled_or_completed_callback_url" =>"https://example.com/payments/callback?id=example"
+    "coin_currency" => "usdt",
+    "coin_amount" => 10.99,
+    "cancelled_or_completed_callback_url" =>"https://example.com/payments/callback?id=example",
+    "description" => "Example charge"
 ]);
 ```
 Note: For now, we only support `usdt` as the price coin currency.
@@ -65,7 +66,7 @@ $merchant_withdrawals->create([
     "coin_amount" => 1,
     "receiver_pay_fee" => true,
     "cancelled_or_completed_callback_url" => "http://sample.com/123/callback",
-        "coin_address" => "3CpwViK5RAMzT8AmaMFHVHyfoyQSwNPB6y"
+    "coin_address" => "3CpwViK5RAMzT8AmaMFHVHyfoyQSwNPB6y"
 ]);
 ```
 
