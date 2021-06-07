@@ -84,14 +84,18 @@ $merchant_withdrawals->create([
 ```
 
 #### Callbacks
-When Charge or Withdrawal is changed to completed or cancelled in our system, we will send
-a POST callback request to `object.cancelled_or_completed_callback_url` with following
-request json body:
-```json
-{ "id": object.id }
-```
-then you could call `$merchant_charges->get($id)` or `$merchant_withdrawal->get($id)`
-to get the updated information and process accordingly.
+##### Charges
+Whenever a charge is changed to completed or cancelled in our system:
+- we will send a POST request to `charge.cancelled_or_completed_callback_url` with `remitano_id` param.
+- if user is still on our site, we will also redirect user to `object.cancelled_or_completed_callback_url` with `remitano_id` param (GET request).
+
+After receiving these callbacks, you could call `$merchant_charges->get($params['remitano_id'])` to get the updated information and process accordingly.
+
+##### Withdrawals
+Whenever a withdrawal is changed to completed or cancelled in our system:
+- we will send a POST request to `withdrawal.cancelled_or_completed_callback_url` with `remitano_id` param.
+
+After receiving these callbacks, you could call `$merchant_withdrawals->get($params['remitano_id'])` to get the updated information and process accordingly.
 
 ### Other API calls
 Visit https://developers.remitano.com/api-explorer for more API specs, APIs can be called directly by using method `get`, `post`, `put` of `$client`
