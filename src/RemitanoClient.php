@@ -72,6 +72,10 @@ class RemitanoClient {
 
     private function base_uri()
     {
+        if (getenv('REMITANO_SANDBOX')) {
+            return "https://api.remidemo.com/api/v1/";
+        }
+
         return getenv('REMITANO_SERVER') ?: "https://api.remitano.com/api/v1/";
     }
 }

@@ -109,6 +109,13 @@ $client->post('offers/best', [
 ### Errors
 When receiving non 200-299 http code, an Error will be raised.
 
+### Sandbox testing
+We have a Testnet at https://remidemo.com.
+
+You could register an account there, then submit a request at [this google form](https://forms.gle/jvJyWPBNwTWfowSm9) with your Remidemo username, so we could help to setup your testing account as a merchant.
+
+After that, you could start your sandbox testing by setting ENV variable: `putenv("REMITANO_SANDBOX=1")`.
+
 ## Contributing
 
 1. Fork it
