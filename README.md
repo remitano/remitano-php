@@ -41,6 +41,7 @@ $merchant_charges = new Remitano\Api\Merchant\Charge($client);
 $merchant_charges->get($id);
 ```
 ##### Create
+1. With coin currency:
 ```php
 $merchant_charges->create([
     "coin_currency" => "usdt",
@@ -50,6 +51,18 @@ $merchant_charges->create([
 ]);
 ```
 Note: For now, we only support `usdt` as the price coin currency.
+
+2. With fiat:
+We support fiat currency of 56 countries that Remitano are supporting, i.e., `USD`, `AUD`. (You could find entire list in our [developer docs](https://developers.remitano.com/docs/getting-started/getting-started)).
+
+```php
+$merchant_charges->create([
+    "fiat_currency" => "AUD",
+    "fiat_amount" => 100.99,
+    "cancelled_or_completed_callback_url" =>"https://example.com/payments/callback?id=example",
+    "description" => "Example charge"
+]);
+```
 
 #### Withdrawals
 ##### Get
