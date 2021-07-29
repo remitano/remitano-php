@@ -17,6 +17,14 @@ class Charge
 
     public function create($data)
     {
+        if (isset($data['fiat_currency'])) {
+            return $this->client->post("merchant/merchant_charges", [
+                "fiat_currency" => $data["fiat_currency"],
+                "fiat_amount" => $data["fiat_amount"],
+                "cancelled_or_completed_callback_url" => $data["cancelled_or_completed_callback_url"],
+                "description" => $data["description"],
+            ]); 
+        }
         return $this->client->post("merchant/merchant_charges", [
             "coin_currency" => $data["coin_currency"],
             "coin_amount" => $data["coin_amount"],
