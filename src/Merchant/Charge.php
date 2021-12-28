@@ -22,14 +22,21 @@ class Charge
                 "fiat_currency" => $data["fiat_currency"],
                 "fiat_amount" => $data["fiat_amount"],
                 "cancelled_or_completed_callback_url" => $data["cancelled_or_completed_callback_url"],
+                "cancelled_or_completed_redirect_url" => $data["cancelled_or_completed_redirect_url"],
                 "description" => $data["description"],
-            ]); 
+                "coin_currency" => $data["coin_currency"],
+                "coin_address" => $data["coin_address"],
+                "coin_layer" => $data["coin_layer"],
+            ]);
         }
         return $this->client->post("merchant/merchant_charges", [
             "coin_currency" => $data["coin_currency"],
             "coin_amount" => $data["coin_amount"],
             "cancelled_or_completed_callback_url" => $data["cancelled_or_completed_callback_url"],
+            "cancelled_or_completed_redirect_url" => $data["cancelled_or_completed_redirect_url"],
             "description" => $data["description"],
+            "coin_address" => $data["coin_address"],
+            "coin_layer" => $data["coin_layer"],
         ]);
     }
 }
